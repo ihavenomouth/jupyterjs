@@ -1,0 +1,50 @@
+<!DOCTYPE html><html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuaderno JS Simple</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- resaltado de sintaxis -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css"> -->
+	<link rel="stylesheet" href="vs2015.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16-gigavolt.min.css"> -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+	<!-- <script src="highlight.min.js" type="module"></script> -->
+  <script src="jupyterjs.js" defer=""></script>
+
+
+  <!-- <h1>Cuaderno de JavaScript</h1> -->
+  <section>
+    <div contenteditable="true"><h1 id="h1">4c - Objetos y clases</h1>
+A los objetos que creamos directamente en el código (en lugar de ser instancias una clase) en JS a veces se les conocen como <b>objetos literales</b>.<p>
+Podemos pensar en ellos como un conjunto de variables y funciones 
+(propiedades o atributos) encapsuladas bajo un mismo nombre. Estos datos
+ se almacenan usando pares clave-valor (o <tt>key:value</tt>). Funcionan por tanto de manera similar a un objeto de tipo <i>map</i>.
+
+</p><p><b>Importante</b>: los objetos se pasan a las funciones por referencia, no por valor.
+
+</p><p><b>Importante</b>: cuando se crea una constante que contiene un objeto, 
+la referencia al objeto no puede cambiar (es constante), pero el 
+contenido del objeto sí puede ser cambiado.
+</p></div>
+    <div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque">
+    </div>
+  </section>
+    
+  <main>
+    <!-- El cuaderno con las notas irán aquí -->
+    <section><pre class="codigo hljs language-cpp" data-jup="code" contenteditable="true"><span class="hljs-type">const</span> a = {nombre:<span class="hljs-string">"Javier"</span>, edad:<span class="hljs-number">44</span>};
+a.edad = <span class="hljs-number">45</span>;  <span class="hljs-comment">// permitido</span>
+console.<span class="hljs-built_in">log</span>("La edad es " + a.edad);</pre><form class="formBotonera justifyCenter"><button type="button" data-jup="botonEjecutarCodigo"><img src="img/play.svg"> Ejecutar código</button><button type="button" data-jup="botonEliminarBloque"><img src="img/trash.svg"> Eliminar código</button><button type="button" data-jup="botonBorrarSalida"><img src="img/borrarOutput.svg"> Borrar salida</button></form><output data-jup="output"></output></section><form data-jup="formAnadirBloques" class="formBotonera justifyCenter">
+      <button type="button" data-jup="btnAnadirTexto"><img src="img/blockquote.svg"></button>
+      <button type="button" data-jup="btnAnadirCodigo"><img src="img/code.svg"></button>
+      <button type="button" data-jup="btnGuardarFichero"><img src="img/file-download.svg"></button>
+    </form>
+  </main>
+
+
+<!-- Code injected by live-server -->
+
+
+</html>

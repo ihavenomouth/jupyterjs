@@ -1,0 +1,179 @@
+@import url(https://fonts.googleapis.com/css?family=Momo+Trust+Sans:200,300,regular,500,600,700,800);
+
+*,::after,::before{
+  box-sizing: border-box;
+}
+
+body{
+  font-family: 'Momo Trust Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-inline: auto;
+  max-width: 60rem;
+  padding: 1rem;
+}
+
+h1{
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 300;
+}
+h2{
+  font-weight: 400;
+  border-bottom: 1px solid black;
+}
+h3{
+  font-weight: 400;
+  font-style: italic;
+}
+
+.formBotonera{
+  display:flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-block: 1rem;
+  margin-inline: auto;
+  color:white;
+  background-color: #EDF;
+  border-radius: 5px;
+  max-width: 30rem;
+  padding: 1rem;
+}
+
+textarea {
+  width: 98%;
+  height: 200px;
+  font-family: monospace;
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+textarea.codigo{
+  margin-left: 2rem;
+}
+[data-jup=code]{
+  width: 98%;
+  /* height: ; */
+  font-family: monospace;
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  /* margin-left: 2rem; */
+  overflow:scroll;
+}
+
+[contenteditable]{
+  margin-left: 1rem;
+  min-height: 3rem;
+  white-space: pre-wrap; /* Para respetar saltos de línea y formateo */
+  padding:0.25rem;
+  /* width:100%; */
+  /* border-bottom: 1px dotted rebeccapurple; */
+}
+[contenteditable]:hover{
+  outline: 2px solid #663399;
+}
+
+/* la división con los botones de gestionar texto */
+[contenteditable] + div {
+  position: absolute;
+/*  display: flex;
+  flex-direction: column;
+  top: -0.75rem;
+  left: -.5rem;
+  display:none;*/
+  bottom: calc(-2.5rem - 2px);
+  left: 1rem;
+  display: none;
+  z-index: 1;
+  background-color: #639E;
+  padding: 0.25rem;
+  min-width: 50%;
+  justify-content: center;
+  gap:1rem;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  outline: 2px solid #639E;
+  /* text-align: center; */
+}
+/* [contenteditable]:hover + div,[contenteditable]:hover + div:hover {
+  display:flex;
+} */
+
+section:has([contenteditable]):hover > div:nth-child(2){
+  display:flex;
+}
+
+output[data-jup="output"] {
+  margin-top: 0.25rem;
+  padding: 1rem;
+  border: 1px solid rebeccapurple;
+  background-color: #edf;
+  white-space: pre-wrap; /* Para respetar saltos de línea y formateo */
+  min-height: 50px;
+  display:block;
+  font-family: monospac e;
+  font-size: 1rem;
+  &:empty{
+    display: none;
+  }
+}
+
+button{
+  margin-top: 1rem;
+  font-family: 'Momo Trust Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
+  font-variant: small-caps;
+  border: 0px;
+  outline: 1px solid blueviolet;
+  background-color: rebeccapurple;
+  color: white;
+  border-radius: 1px;
+  min-width: 5rem;
+  padding: 0.25rem 1rem;
+  &:hover{
+    filter:brightness(1.2);
+    cursor: pointer;
+  }
+  &:active{
+    transform: translate(0px, 1px);
+  }
+}
+.formBotonera button{
+  margin-top: 0;
+}
+
+.justifyCenter{
+  justify-content: center;
+}
+
+dialog{
+  min-width: 40rem;
+  border: 2px solid rebeccapurple;
+  border-radius: 10px;
+}
+dialog::backdrop{
+  background-color: #3696;
+}
+
+section{
+  margin-top: 1rem;
+  position:relative;
+}
+
+.buttonEliminarTexto{
+  background-color: #316;
+  /* position: absolute; */
+  /* left: -2.5rem; */
+  /* top:-0.25rem; */
+  border-radius: 100%;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.25rem;
+  cursor:pointer;
+  user-select: none;
+}
+
+code, pre, tt{
+  background-color: #edf;
+  font-size: 0.9rem;
+  font-family: monospace;
+  color: rebeccapurple;
+}

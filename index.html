@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuaderno JS Simple</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- resaltado de sintaxis -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css"> -->
+	<link rel="stylesheet" href="vs2015.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16-gigavolt.min.css"> -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+	<!-- <script src="highlight.min.js" type="module"></script> -->
+  <script src="jupyterjs.js" defer></script>
+
+</head>
+<body>
+  <!-- <h1>Cuaderno de JavaScript</h1> -->
+  <section>
+    <div contenteditable="true"><h1>Cuaderno de Javascript</h1>
+<p>Utiliza los botones de abajo para añadir bloques de contenido al cuaderno.</p></div>
+    <div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque">
+    </div>
+  </section>
+    
+  <main>
+    <!-- El cuaderno con las notas irán aquí -->
+    <form data-jup="formAnadirBloques" class="formBotonera justifyCenter">
+      <button type="button" data-jup="btnAnadirTexto"><img src="img/blockquote.svg"></button>
+      <button type="button" data-jup="btnAnadirCodigo"><img src="img/code.svg"></button>
+      <button type="button" data-jup="btnGuardarFichero"><img src="img/file-download.svg"></button>
+    </form>
+  </main>
+
+
+</body>
+</html>
