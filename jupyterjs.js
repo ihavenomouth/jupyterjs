@@ -16,12 +16,29 @@ const borrarOutput = e => {
 }
 
 
+const subirBloque = e => {
+  const sectionActual = e.target.closest("section");
+  const sectionAnterior = sectionActual.previousElementSibling;
+
+  if(sectionAnterior)
+    sectionAnterior.before(sectionActual);
+};
+
+const bajarBloque = e => {
+  const sectionActual = e.target.closest("section");
+  const sectionSiguiente = sectionActual.nextElementSibling;
+
+  if(sectionSiguiente.tagName != "FORM")
+    sectionSiguiente.after(sectionActual);
+};
+
+
 /**
  * Ejecuta el código más cercano al botón y muestra los console.log() en la etiqueta output más cercana.
  * @param {HTMLButtonElement} e 
  */
 function runCode(e) {
-  const boton = e.target.closest("button");
+  const boton = e.target.closest("img");
   const textArea = boton.parentElement.previousElementSibling;
   const outputElement = boton.parentElement.nextElementSibling;
 
@@ -95,19 +112,32 @@ const anadirBloqueDeTexto = ()=>{
     buttonEliminar.src="img/trash.svg";
     buttonEliminar.dataset.jup = "botonEliminarBloque";
     buttonEliminar.classList.add("buttonEliminarTexto");
-    buttonEliminar.dataset.jup = "botonEliminarBloque";
     buttonEliminar.addEventListener("click", eliminarBloque)
 
     const buttonEditar = document.createElement("img");
     buttonEditar.src="img/edit.svg";
     buttonEditar.classList.add("buttonEliminarTexto");
     buttonEditar.dataset.jup = "botonEditarBloque";
-
+    
     buttonEditar.addEventListener("click", ()=>{
       mostrarDialogoModificarTexto(divTexto);
     })
 
-    divBotones.append(buttonEliminar, buttonEditar);
+
+    const buttonSubir = document.createElement("img");
+    buttonSubir.src="img/caret-up.svg";
+    buttonSubir.classList.add("buttonEliminarTexto");
+    buttonSubir.dataset.jup = "botonSubirBloque";
+    buttonSubir.addEventListener("click",subirBloque);
+
+    const buttonBajar = document.createElement("img");
+    buttonBajar.src="img/caret-down.svg";
+    buttonBajar.classList.add("buttonEliminarTexto");
+    buttonBajar.dataset.jup = "botonBajarBloque";
+    buttonBajar.addEventListener("click",bajarBloque);
+
+
+    divBotones.append(buttonEliminar, buttonEditar, buttonSubir, buttonBajar);
 
   
     const main = document.querySelector("main");
@@ -209,7 +239,7 @@ const mostrarDialogoModificarTexto=divTexto=>{
 const anadirBloqueDeCodigo = ()=>{
   const dialog = document.createElement("dialog");
   const p = document.createElement("p");
-  p.innerText = "Escribe el código Javascript que deseas añadir. Con Ctrl+Espacio se restaura el resaltado de sintaxis."
+  p.innerText = "Escribe el código Javascript que deseas añadir. Con Ctrl+Espacio se restaurará el resaltado de sintaxis."
 
   const textarea = document.createElement("textarea");
 
@@ -229,10 +259,46 @@ const anadirBloqueDeCodigo = ()=>{
     textAreaCodigo.classList.add("codigo");
     textAreaCodigo.dataset.jup = "code";
     textAreaCodigo.contentEditable = "true";
+    textAreaCodigo.classList.add("language-javascript");
+    textAreaCodigo.spellcheck=false;
     
-    // const pre = document.createElement("pre");
-    // pre.append(textAreaCodigo);
+    const divBotones = document.createElement("div");
 
+    const buttonEliminar = document.createElement("img");
+    buttonEliminar.src="img/trash.svg";
+    buttonEliminar.dataset.jup = "botonEliminarBloque";
+    buttonEliminar.classList.add("buttonEliminarTexto");
+    buttonEliminar.addEventListener("click", eliminarBloque)
+
+    const buttonPlay = document.createElement("img");
+    buttonPlay.src="img/play.svg";
+    buttonPlay.dataset.jup = "botonEjecutarCodigo";
+    buttonPlay.classList.add("buttonEliminarTexto");
+    buttonPlay.addEventListener("click", runCode);
+    
+    const buttonBorrarOutput = document.createElement("img");
+    buttonBorrarOutput.src="img/borrarOutput.svg";
+    buttonBorrarOutput.dataset.jup = "botonBorrarSalida";
+    buttonBorrarOutput.classList.add("buttonEliminarTexto");
+    buttonBorrarOutput.addEventListener("click", borrarOutput);
+
+    const buttonSubir = document.createElement("img");
+    buttonSubir.src="img/caret-up.svg";
+    buttonSubir.classList.add("buttonEliminarTexto");
+    buttonSubir.dataset.jup = "botonSubirBloque";
+    buttonSubir.addEventListener("click",subirBloque);
+
+    const buttonBajar = document.createElement("img");
+    buttonBajar.src="img/caret-down.svg";
+    buttonBajar.classList.add("buttonEliminarTexto");
+    buttonBajar.dataset.jup = "botonBajarBloque";
+    buttonBajar.addEventListener("click",bajarBloque);
+
+
+
+    divBotones.append(buttonEliminar, buttonPlay,buttonBorrarOutput, buttonSubir, buttonBajar);
+
+    /*
     const buttonPlay = document.createElement("button");  
     buttonPlay.type="button";
     const icono = document.createElement("img");
@@ -261,11 +327,11 @@ const anadirBloqueDeCodigo = ()=>{
     formBotonera.append(buttonPlay, buttonEliminar, buttonBorrarOutput);
     formBotonera.classList.add("formBotonera","justifyCenter");
 
-
+    */
     const output = document.createElement("output");
     output.dataset.jup="output";
 
-    section.append(textAreaCodigo, formBotonera,output);
+    section.append(textAreaCodigo, divBotones,output);
     
     const main = document.querySelector("main");
     const formAnadirBloques = document.querySelector("form[data-jup=formAnadirBloques]");
@@ -386,6 +452,23 @@ document.querySelectorAll("[data-jup=botonBorrarSalida]").forEach(b=>{
   b.addEventListener("click", borrarOutput);
 })
   
+//Restauramos los botones de subir y bajar bloques de texto y código
+document.querySelectorAll("[data-jup=botonSubirBloque]").forEach(b=>{
+  b.addEventListener("click", subirBloque);
+})
 
+document.querySelectorAll("[data-jup=botonBajarBloque]").forEach(b=>{
+  b.addEventListener("click", bajarBloque);
+})
+
+// Restauramos el resaltado del código
+document.querySelectorAll("[data-jup=code]").forEach(textarea=>{
+  textarea.addEventListener("keyup", e=>{
+    if(e.key ==" " && e.ctrlKey)
+      resaltar(textarea)}
+  );
+  textarea.spellcheck=false;
+  console.log(textarea)
+})
 
 

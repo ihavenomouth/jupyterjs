@@ -1,42 +1,151 @@
-<!DOCTYPE html><html>
-  <meta charset="UTF-8">
+<!DOCTYPE html><html><meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cuaderno JS Simple</title>
   <link rel="stylesheet" href="style.css">
   
   <!-- resaltado de sintaxis -->
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css"> -->
-	<link rel="stylesheet" href="vs2015.min.css">
+	<!-- <link rel="stylesheet" href="vs2015.min.css"> -->
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16-gigavolt.min.css"> -->
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"> -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 	<!-- <script src="highlight.min.js" type="module"></script> -->
   <script src="jupyterjs.js" defer=""></script>
 
 
   <!-- <h1>Cuaderno de JavaScript</h1> -->
-  <section>
-    <div contenteditable="true"><h1 id="h1">4c - Objetos y clases</h1>
-A los objetos que creamos directamente en el código (en lugar de ser instancias una clase) en JS a veces se les conocen como <b>objetos literales</b>.<p>
-Podemos pensar en ellos como un conjunto de variables y funciones 
-(propiedades o atributos) encapsuladas bajo un mismo nombre. Estos datos
- se almacenan usando pares clave-valor (o <tt>key:value</tt>). Funcionan por tanto de manera similar a un objeto de tipo <i>map</i>.
+  <main>
 
-</p><p><b>Importante</b>: los objetos se pasan a las funciones por referencia, no por valor.
+    <section>
+    <div contenteditable="true"><h1 id="h1">6 - DOM		</h1><p>O de manera más precisa: Utilización del modelo de objetos del documento (DOM).
+</p><p>Referencia:<br><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API" title="https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API" class="https">https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API</a>
+		</p><h1 id="h2">Introducción</h1><b>Importante</b>: Diferencia entre <i>nodo</i> y <i>elemento</i>: nodo incluye elementos HTML, texto y comentarios.
 
-</p><p><b>Importante</b>: cuando se crea una constante que contiene un objeto, 
-la referencia al objeto no puede cambiar (es constante), pero el 
-contenido del objeto sí puede ser cambiado.
-</p></div>
-    <div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque">
+<p>El DOM es un árbol de nodos en el que aparecen todos los componentes de 
+la web. Existen distintos tipos de nodos (12 tipos), de los cuales los 
+más importantes son:</p><ul style="padding-left: 30pt"><li>Nodo <i>document</i> (&lt;html&gt;)</li><li>Nodo <i>element</i> (cualquier otra etiqueta html: h1, form, etc)</li><li>Nodo <i>attr</i> (atributos de las etiquetas)</li><li>Nodo <i>text</i></li></ul><p><br></p><p>Nomenclatura de árboles:</p><ul style="padding-left: 30pt"><li><b>Raíz (root)</b>: nodo superior de la estructura (el objeto <tt>document</tt>)</li><li><b>Nodo(s) hijo(s) (child o children)</b>: descendientes de un nodo. <i>Children</i> es el plural de <i>child</i>.</li><li><b>Nodo padre (parent)</b>: nodo superior/antecesor en el que se encuentra anidado uno dado</li><li><b>Nodo hermano (sibling)</b>: nodos que comparten nodo padre</li><li><b>Nodo hoja</b>: nodo sin hijos. Todos los nodos de texto son nodos hoja.</li></ul><p><b>Nota</b>: nosotros trabajaremos casi siempre con elementos directamente, para los que se aplican también esa nomenclatura. 
+</p>
+<br>
+<p>
+<img src="file:///home/javier/Prof/ZIM/0_Clases/8_Cliente/6_-_DOM/pasted_image.png">
+</p>
+<br>
+
+			<h2 id="h3">Buscar elementos en el árbol			</h2><p>
+<b>Métodos de búsqueda clásica</b>:<br>
+Algunos devuelven una colección de elementos (HTMLCollection no es un array, pero sí es una estructura iterable).</p><pre>document.getElementById("id");
+document.getElementsByName("txtNombre"); // Campos de formulario
+document.getElementsByTagName("h1");
+document.getElementsByClassName("seleccionado");</pre><p><br></p><p>También se puede buscar a partir de un elemento que no sea <tt>document</tt>, por ejemplo:</p><pre>const div = document.getElementById("divDatos");
+div.getElementsByClassName("rojo");
+div.getElementsByTagName("rojo");
+div.querySelector(".rojo");
+</pre>
+<b>Nota</b>: No tendremos disponible un <tt>div.getElementById(id);</tt><p><b>Nota</b>: Un error común es olvidarse del plural de <i>Elements</i> en métodos que devuelven o pueden devolver varios nodos.
+
+</p><p><b>Métodos de búsqueda con selectores CSS</b>:</p><pre>document.querySelector("selector-css");
+document.querySelectorAll("selector-css");</pre><p><b>Ejemplos</b>: 
+</p><pre>let oInput = document.querySelector("#txtNombre");
+let oH1 = document.querySelectorAll("h1");
+let oSeleccionados = document.querySelectorAll(".seleccionado");
+let oTxtNombre = document.querySelector("[name='txtNombre']");
+</pre>
+Propiedades de los nodos:
+<ul style="padding-left: 30pt"><li><tt>nodeType</tt> - Número que identifica el tipo de nodo</li><li><tt>nodeName</tt> - Nombre del nodo. En elementos HTML es la etiqueta en mayusculas (<tt>"DIV"</tt>, <tt>"UL"</tt>), si el nodo es de texto el nombre será <tt>"#text"</tt>.</li><li><tt>tagName</tt> - Si es un elemento HTML tendrá esta propiedad y coincidirá con el <tt>nodeName</tt>.</li><li><tt>nodeValue</tt> - Valor asociado al nodo y depende del tipo de nodo. Si es un input se usará <tt>value</tt> para recuperar su contenido.</li></ul>			<h2 id="h4">Navegar por los elementos		</h2><p><b>Propiedades que devuelven elementos HTML</b> (etiquetas). Probablemente sean los más utilizados desde JS.</p><ul style="padding-left: 30pt"><li><tt>parentElement</tt> – El elemento padre</li><li><tt>firstElementChild</tt> – El primer hijo</li><li><tt>lastElementChild</tt> – El último hijo</li><li><tt>children</tt> – HTMLCollection (similar a un array) que contiene todos los hijos del elemento</li><li><tt>nextElementSibling</tt> – El siguiente hermano en la jerarquía del árbol</li><li><tt>previousElementSibling</tt> – El hermano anterior en la jerarquía del árbol</li><li><tt>closest("tr")</tt> – El elemento antecesor (padre, abuelo, ...) más cercano que sea un <tt>&lt;tr&gt;</tt></li></ul><p> Devolverán <tt>null</tt> si no existe el elemento referenciado, por ejemplo un elemento que no tenga hermanos ni hijos tendrá <tt>null</tt> como valor de <tt>nextElementSibling</tt>, <tt>previousElementSibling</tt>, <tt>firstElementChild</tt> y <tt>lastElementChild</tt>. Sin embargo <tt>children</tt> será un <tt>HTMLCollection</tt> con 0 elementos (se ve en la propiedad <tt>length</tt>).
+
+</p><p><b>Propiedades que devuelven cualquier tipo de Nodo</b>. Hay que teber cuidado porque pueden devolver también nodos de texto, por tanto no deberíamos usarlos si sólo queremos recorrer los elementos (las etiquetas HTML) del DOM. </p><ul style="padding-left: 30pt"><li><tt>parentNode</tt> – Referencia al nodo padre</li><li><tt>firstChild</tt> – Referencia al primer nodo hijo</li><li><tt>lastChild</tt> – Referencia al último nodo hijo</li><li><tt>childNodes</tt> – Array con los nodos hijo</li><li><tt>nextSibling</tt> – Referencia al siguiente hermano</li><li><tt>previousSibling</tt> – Referencia al hermano anterior</li></ul><p>
+Ejemplo:</p><pre>&lt;main&gt;
+ &lt;h1&gt;Graphviz&lt;/h1&gt;
+ &lt;p&gt;Graphviz permite &lt;strong&gt;definir diagramas&lt;/strong&gt; con texto.&lt;/p&gt;
+ Este texto será usado para definir formas, colores y relaciones.
+ &lt;div&gt;
+   &lt;p&gt;Hay varios tipos de gráficos que se pueden crear.&lt;/p&gt;
+ &lt;/div&gt;
+&lt;/main&gt;
+
+</pre><p>Si vemos el árbol que nos genera en <a href="https://software.hixie.ch/utilities/js/live-dom-viewer/" title="https://software.hixie.ch/utilities/js/live-dom-viewer/" class="https">https://software.hixie.ch/utilities/js/live-dom-viewer/</a> observaremos que se crean muchos nodos de texto vacío por los espacios y retornos de carro.
+</p>
+<p>Si <b>lo minificamos y lo dejamos en una única línea</b>, obtendremos este árbol:<br>
+<img src="file:///home/javier/Prof/ZIM/0_Clases/8_Cliente/6_-_DOM/diagram.png">
+</p>
+<br>
+<p>
+Partiendo del elemento <tt>p</tt> destacado en rojo (recuerda que se ha minificado el código HTML):
+</p>
+<pre>p.parentElement                   // &lt;main&gt;
+p.parentNode                      // &lt;main&gt;
+
+p.nextSibling                     // #text "Este texto... "
+p.nextElementSibling              // &lt;div&gt;
+
+p.previousSibling                 // &lt;h1&gt;
+p.previousElementSibling          // &lt;h1&gt;
+
+p.previousSibling.previousSibling // null
+
+p.firstElementChild               // &lt;strong&gt;
+p.lastElementChild                // &lt;strong&gt;
+p.firstChild                      // #text " con texto."
+
+p.children.length                 // 1 (sólo el strong)
+p.childNodes.length               // 3 [ #text, strong, #text ]
+</pre>
+<br>
+<p>
+<b>Nota</b>: si no quitamos los retornos de carro y espacios entre 
+etiquetas, tendremos muchos más nodos de texto. Tendremos que tenerlo en
+ cuenta al usar unos métodos u otros.
+</p>
+</div>
+    <div>
+<img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque">
     </div>
   </section>
     
-  <main>
     <!-- El cuaderno con las notas irán aquí -->
-    <section><pre class="codigo hljs language-cpp" data-jup="code" contenteditable="true"><span class="hljs-type">const</span> a = {nombre:<span class="hljs-string">"Javier"</span>, edad:<span class="hljs-number">44</span>};
-a.edad = <span class="hljs-number">45</span>;  <span class="hljs-comment">// permitido</span>
-console.<span class="hljs-built_in">log</span>("La edad es " + a.edad);</pre><form class="formBotonera justifyCenter"><button type="button" data-jup="botonEjecutarCodigo"><img src="img/play.svg"> Ejecutar código</button><button type="button" data-jup="botonEliminarBloque"><img src="img/trash.svg"> Eliminar código</button><button type="button" data-jup="botonBorrarSalida"><img src="img/borrarOutput.svg"> Borrar salida</button></form><output data-jup="output"></output></section><form data-jup="formAnadirBloques" class="formBotonera justifyCenter">
+    <section><div contenteditable="true">Probando a añadir algo de <code>código más abajo</code>. Pulsa los botones correspondientes para ejecutar el código.</div><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div></section><section><pre class="codigo language-javascript hljs" data-jup="code" contenteditable="true" spellcheck="false"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">345</span>);
+<span class="hljs-comment">//Menuda cagada</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Hola caracola"</span>);
+
+<span class="hljs-keyword">let</span> a=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>];
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"yeah"</span>);
+
+a.<span class="hljs-title function_">forEach</span>( <span class="hljs-function"><span class="hljs-params">e</span>=&gt;</span><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(e) );
+
+<span class="hljs-keyword">let</span> w = <span class="hljs-number">23</span>;
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Join: "</span> + a.<span class="hljs-title function_">join</span>(<span class="hljs-string">","</span>) );</pre><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/play.svg" data-jup="botonEjecutarCodigo" class="buttonEliminarTexto"><img src="img/borrarOutput.svg" data-jup="botonBorrarSalida" class="buttonEliminarTexto"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div><output data-jup="output"></output></section><section><div contenteditable="true">Escribe el código necesario para que se sumen en una única línea de código el contenido de <code>let s = [2,4,5,6,7]</code></div><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div></section><section><pre class="codigo language-javascript hljs" data-jup="code" contenteditable="true" spellcheck="false"><span class="hljs-comment">// Escribe tu código aquí</span>
+<span class="hljs-keyword">let</span> s = [<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>];
+
+<span class="hljs-keyword">let</span> sum1 = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i=<span class="hljs-number">0</span>; i&lt;s.<span class="hljs-property">length</span>;i++){
+  sum1 += s[i];
+}
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(sum1);
+
+
+<span class="hljs-keyword">let</span> sum2 = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> n <span class="hljs-keyword">of</span> s){
+  sum2 += n;
+}
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(sum2);
+
+
+<span class="hljs-keyword">let</span> sum3=<span class="hljs-number">0</span>;
+s.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">n</span>=&gt;</span>sum3+=n);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(sum3);
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">sumPrecise</span>(s));
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( s.<span class="hljs-title function_">reduce</span>( <span class="hljs-function">(<span class="hljs-params">n,acc</span>)=&gt;</span>n+acc,<span class="hljs-number">0</span>  ) );
+
+</pre><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/play.svg" data-jup="botonEjecutarCodigo" class="buttonEliminarTexto"><img src="img/borrarOutput.svg" data-jup="botonBorrarSalida" class="buttonEliminarTexto"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div><output data-jup="output">24
+24
+24
+24
+24
+</output></section><form data-jup="formAnadirBloques" class="formBotonera justifyCenter">
       <button type="button" data-jup="btnAnadirTexto"><img src="img/blockquote.svg"></button>
       <button type="button" data-jup="btnAnadirCodigo"><img src="img/code.svg"></button>
       <button type="button" data-jup="btnGuardarFichero"><img src="img/file-download.svg"></button>

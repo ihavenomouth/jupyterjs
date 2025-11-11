@@ -1,5 +1,8 @@
 @import url(https://fonts.googleapis.com/css?family=Momo+Trust+Sans:200,300,regular,500,600,700,800);
 
+
+/* TODO: MODO OSCURO */
+
 *,::after,::before{
   box-sizing: border-box;
 }
@@ -29,7 +32,7 @@ h3{
   display:flex;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-block: 1rem;
+  margin-block: 4rem;
   margin-inline: auto;
   color:white;
   background-color: #EDF;
@@ -50,26 +53,27 @@ textarea.codigo{
   margin-left: 2rem;
 }
 [data-jup=code]{
-  width: 98%;
+  /* width: 98%; */
   /* height: ; */
   font-family: monospace;
   padding: 10px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   font-size: 1rem;
   /* margin-left: 2rem; */
   overflow:scroll;
 }
 
 [contenteditable]{
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
   min-height: 3rem;
   white-space: pre-wrap; /* Para respetar saltos de línea y formateo */
-  padding:0.25rem;
+  padding:0.5rem;
+  /* padding:0.25rem; */
   /* width:100%; */
   /* border-bottom: 1px dotted rebeccapurple; */
-}
-[contenteditable]:hover{
-  outline: 2px solid #663399;
+  &:focus{
+    outline:0;
+  }
 }
 
 /* la división con los botones de gestionar texto */
@@ -80,18 +84,18 @@ textarea.codigo{
   top: -0.75rem;
   left: -.5rem;
   display:none;*/
-  bottom: calc(-2.5rem - 2px);
+  bottom: calc(-3rem - 0px);
   left: 1rem;
   display: none;
   z-index: 1;
-  background-color: #639E;
-  padding: 0.25rem;
+  background-color: #639;
+  padding: 0.5rem;
   min-width: 50%;
   justify-content: center;
   gap:1rem;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  outline: 2px solid #639E;
+  /* outline: 2px solid #639E; */
   /* text-align: center; */
 }
 /* [contenteditable]:hover + div,[contenteditable]:hover + div:hover {
@@ -102,8 +106,15 @@ section:has([contenteditable]):hover > div:nth-child(2){
   display:flex;
 }
 
+section:has([contenteditable]):hover{
+  outline: 2px solid #663399;
+}
+
+
+
 output[data-jup="output"] {
   margin-top: 0.25rem;
+  /* margin-left: 1rem; */
   padding: 1rem;
   border: 1px solid rebeccapurple;
   background-color: #edf;
@@ -156,19 +167,27 @@ dialog::backdrop{
 section{
   margin-top: 1rem;
   position:relative;
+  padding: 0.5rem;
 }
 
 .buttonEliminarTexto{
-  background-color: #316;
+  background-color: #639;
   /* position: absolute; */
   /* left: -2.5rem; */
   /* top:-0.25rem; */
-  border-radius: 100%;
+  /* border-radius: 100%; */
+  border-radius: 10px;
   width: 2rem;
   height: 2rem;
   padding: 0.25rem;
   cursor:pointer;
   user-select: none;
+  &:hover{
+    filter: brightness(1.25);
+  }
+  &:active{
+    transform: scale(0.9);
+  }
 }
 
 code, pre, tt{
