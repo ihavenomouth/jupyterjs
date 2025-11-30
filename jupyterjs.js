@@ -96,8 +96,12 @@ const anadirBloqueDeTexto = ()=>{
   const form = document.createElement("form");
   form.classList.add("formBotonera", "justifyCenter");
 
+  const imgAceptar = document.createElement("img");
+  imgAceptar.src="img/square-check.svg";
+
   const buttonAceptar = document.createElement("button");
   buttonAceptar.innerText="Aceptar";
+  buttonAceptar.prepend(imgAceptar);
   buttonAceptar.type="button";
 
   buttonAceptar.addEventListener("click", e=>{
@@ -147,8 +151,12 @@ const anadirBloqueDeTexto = ()=>{
     dialog.remove();
   });
 
+  const imgCancelar = document.createElement("img");
+  imgCancelar.src="img/square-x.svg";
+
   const buttonCancelar = document.createElement("button");
   buttonCancelar.innerText="Cancelar";
+  buttonCancelar.prepend(imgCancelar);
   buttonCancelar.type="button";
 
   buttonCancelar.addEventListener("click", e=>{
@@ -242,12 +250,17 @@ const anadirBloqueDeCodigo = ()=>{
   p.innerText = "Escribe el código Javascript que deseas añadir. Con Ctrl+Espacio se restaurará el resaltado de sintaxis."
 
   const textarea = document.createElement("textarea");
+  textarea.spellcheck = false;
 
   const form = document.createElement("form");
   form.classList.add("formBotonera", "justifyCenter");
+  
+  const imgAceptar = document.createElement("img");
+  imgAceptar.src="img/square-check.svg";
 
   const buttonAceptar = document.createElement("button");
   buttonAceptar.innerText="Aceptar";
+  buttonAceptar.prepend(imgAceptar);
   buttonAceptar.type="button";
 
   buttonAceptar.addEventListener("click", e=>{
@@ -346,8 +359,12 @@ const anadirBloqueDeCodigo = ()=>{
     );
   });
 
+  const imgCancelar = document.createElement("img");
+  imgCancelar.src="img/square-x.svg";
+
   const buttonCancelar = document.createElement("button");
   buttonCancelar.innerText="Cancelar";
+  buttonCancelar.prepend(imgCancelar);
   buttonCancelar.type="button";
 
   buttonCancelar.addEventListener("click", e=>{
@@ -471,4 +488,77 @@ document.querySelectorAll("[data-jup=code]").forEach(textarea=>{
   console.log(textarea)
 })
 
+/* Menú auxiliar */
+let jupTema=0;
+document.querySelector("#btnCambiarTema").addEventListener("click", e=>{
+  
+  if(jupTema==0){
+    jupTema++;
+    document.body.classList.remove("rojo");
+    document.body.classList.remove("verde");
+    document.body.classList.add("dark");
+  }
+  else if(jupTema==1){
+    jupTema++;
+    document.body.classList.add("rojo");
+    document.body.classList.remove("verde");
+    document.body.classList.remove("dark");
+  }
+  else if(jupTema==2){
+    jupTema++;
+    document.body.classList.remove("rojo");
+    document.body.classList.add("verde");
+    document.body.classList.remove("dark");
+  }
+  else{
+    jupTema=0;
+    document.body.classList.remove("rojo");
+    document.body.classList.remove("verde");
+    document.body.classList.remove("dark");
+  }
+});
 
+document.querySelector("#btnPosiciónBotones").addEventListener("click", e=>{
+  document.body.classList.toggle("botones-izquierda");
+});
+
+
+
+let contenidoProtegido = false;
+document.querySelector("#btnProtegerContenido").addEventListener("click", e=>{
+  if(!contenidoProtegido){
+    document.querySelectorAll("div[contenteditable=true]").forEach(d=>{
+      d.contentEditable = false;
+    });
+    contenidoProtegido = true;
+  }
+  else{
+    document.querySelectorAll("div[contenteditable=true]").forEach(d=>{
+      d.contentEditable = true;
+    });
+    contenidoProtegido = false;
+  }
+});
+
+
+
+//TODO: Cambiar estas variables para que sea un atributo del body
+let botonesOcultos = false;
+document.querySelector("#btnVerOcultarBotones").addEventListener("click", e=>{
+  if(!botonesOcultos){
+    //Ocultamos todos los botones del bloque de texto
+    document.querySelectorAll("section div[contenteditable] + div:nth-child(2)").forEach(b=>b.style.display="none");
+    
+    //Del bloque de código ocultamos todos menos el de ejecutar y limpiar la salida
+    document.querySelectorAll("[data-jup=botonEliminarBloque],[data-jup=botonSubirBloque],[data-jup=botonBajarBloque]").forEach(b=>b.style.display="none");
+    botonesOcultos = true;
+  }
+  else{
+    //Mostramos todos los botones del bloque de texto
+    document.querySelectorAll("section div[contenteditable] + div:nth-child(2)").forEach(b=>b.style.display="");
+    
+    //Del bloque de código mostramos los botones ocultos
+    document.querySelectorAll("[data-jup=botonEliminarBloque],[data-jup=botonSubirBloque],[data-jup=botonBajarBloque]").forEach(b=>b.style.display="");
+    botonesOcultos = false;
+  }
+});

@@ -1,0 +1,92 @@
+<!DOCTYPE html><html><meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuaderno JS Simple</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- resaltado de sintaxis -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css"> -->
+	<link rel="stylesheet" href="atom-one-dark.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16-gigavolt.min.css"> -->
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+	<!-- <script src="highlight.min.js" type="module"></script> -->
+  <script src="jupyterjs.js" defer=""></script>
+
+
+  <!-- <h1>Cuaderno de JavaScript</h1> -->
+  <main>
+
+    <section>
+    <div contenteditable="true"><h1 id="h1">5a - Interacción con los elementos HTML</h1><p>Contenido básico</p><ul style="padding-left: 30pt"><li>Eventos</li><li>Formularios y validación de formularios</li></ul></div>
+    <div>
+<img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque">
+    </div>
+  </section>
+    
+    <!-- El cuaderno con las notas irán aquí -->
+    <section><div contenteditable="true"><h1 id="h2">Eventos</h1><p><b>Definición de evento en JS</b>: algo que sucede y que puede capturarse para que se produzca una acción.
+</p><p>Referencia: <a href="https://developer.mozilla.org/en-US/docs/Web/Events" title="https://developer.mozilla.org/en-US/docs/Web/Events" class="https">https://developer.mozilla.org/en-US/docs/Web/Events</a>
+</p><p>Eventos de ratón:
+</p><ul style="padding-left: 30pt"><li><tt>click</tt> - botón izquierdo</li><li><tt>dblclick</tt> - doble click</li><li><tt>contextmenu</tt> - botón derecho del ratón (muestra el menú contextual)</li><li><tt>mousedown</tt> - se pulsa un botón del ratón (al presionarla)</li><li><tt>mouseup</tt> - se deja de pulsar un botón del ratón (al liberarlo)</li><li><tt>mouseenter</tt> - cuando el cursor entra en una zona</li><li><tt>mouseout</tt> - cuando el cursor sale de una zona (fuera del elemento o encima de un elemento hijo)</li><li><tt>mouseleave</tt> - cuando el cursor sale de una zona (fuera del elemento sin tener en cuenta los hijos)</li><li><tt>mouseover</tt> - cuando el cursor entra en una etiqueta y también cuando entra en una etiqueta hija</li><li><tt>mousemove</tt> - cuando el cursor se mueve (se repite)</li></ul><p>Eventos de teclado:
+</p><ul style="padding-left: 30pt"><li><tt>keydown</tt> - se pulsa una tecla del teclado (al presionarla)</li><li><tt>keyup</tt> - se deja de pulsar una tecla del teclado (al librerarla)</li></ul><p>
+Otros eventos:
+</p><ul style="padding-left: 30pt"><li><tt>change</tt> - se produce un cambio en el control, por ejemplo se selecciona o deselecciona un <b>checkbox</b> o se selecciona un elemento de un <b>select</b>. También se produce cuando se cambia el contenido de un <b>textbox</b>
+ y se cambia el foco (deja de estar seleccionado el textbox). Implica 
+que se debe producir un cambio de foco (en este caso cambia el elemento 
+seleccionado).</li><li><tt>input</tt> - se produce un cambio en el control, pero no es necesario que pierda el foco.</li></ul>
+<p><b>Nota</b>: En los radio button el evento <tt>change</tt> se produce cuando se selecciona el elemento, pero no cuando se deselecciona. Haz el ejercicio <b>5a-2</b> para comprobar su funcionamiento.
+</p><p><b>Nota</b>: Las pantallas táctiles tienen su propio conjunto de eventos: <tt>touchstart</tt>, <tt>touchend</tt>, <tt>touchmove</tt>...
+</p></div><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div></section><section><div contenteditable="true"><h1>Evento Input vs Change</h1>
+<label for="txtDato">Escribe un dato:</label>
+<input type="text" id="txtDato"><p>El evento <code>input</code> se activa cada vez que cambia el contenido del cuadro de texto.</p><div id="divDatoEscrito" style="filter:opacity(0.5);padding:0.25rem;">En un lugar de la mancha</div><p>El evento <code>change</code> se activa al cambiar el contenido del cuadro de texto y perder el foco (cuando deja de estar seleccionado). Escribe algo debajo y pulsa <kbd>Tab</kbd> o haz click en alguna parte de la web.</p><div id="divDatoEscrito2" style="filter:opacity(0.5);padding:0.25rem;">En un lugar de la mancha</div>
+Este es el HTML asociado:<pre>label for="txtDato"&gt;Escribe un dato:&lt;/label&gt;
+&lt;input type="text" id="txtDato"&gt;
+
+&lt;p&gt;El evento &lt;code&gt;input&lt;/code&gt; se activa cada vez que cambia el contenido del cuadro de texto.&lt;/p&gt;
+&lt;div id="divDatoEscrito" style="filter:opacity(0.5);padding:0.25rem;"&gt;&lt;/div&gt;
+
+&lt;p&gt;El evento &lt;code&gt;change&lt;/code&gt; se activa al cambiar el contenido del cuadro de texto 
+y perder el foco (cuando deja de estar seleccionado). Escribe algo debajo y pulsa 
+&lt;kbd&gt;Tab&lt;/kbd&gt; o haz click en alguna parte de la web.&lt;/p&gt;
+&lt;div id="divDatoEscrito2" style="filter:opacity(0.5);padding:0.25rem;"&gt;&lt;/div&gt;
+</pre>
+
+Y aquí abajo está el código que tendremos que ejecutar.</div><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div></section><section><pre class="codigo language-javascript hljs" data-jup="code" contenteditable="true" spellcheck="false"><span class="hljs-keyword">const</span> txtDato = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">"#txtDato"</span>);
+	
+txtDato.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">"input"</span>, <span class="hljs-function"><span class="hljs-params">e</span>=&gt;</span>{
+<span class="hljs-keyword">  const</span> divDatoEscrito = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">"#divDatoEscrito"</span>);
+  divDatoEscrito.<span class="hljs-property">textContent</span> = txtDato.<span class="hljs-property">value</span>;
+});
+
+txtDato.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">"change"</span>, <span class="hljs-function"><span class="hljs-params">e</span>=&gt;</span>{
+<span class="hljs-keyword">  const</span> divDatoEscrito2 = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">"#divDatoEscrito2"</span>);
+  divDatoEscrito2.<span class="hljs-property">textContent</span> = txtDato.<span class="hljs-property">value</span>;
+});</pre><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/play.svg" data-jup="botonEjecutarCodigo" class="buttonEliminarTexto"><img src="img/borrarOutput.svg" data-jup="botonBorrarSalida" class="buttonEliminarTexto"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div><output data-jup="output"></output></section><section><div contenteditable="true"><p><b>Ejercicio 5a-2</b>: Crea una web que contenga un formulario con dos radio button cuyo name sea <tt>txtOpcion</tt>: </p><ul style="padding-left: 30pt"><li>colores</li><li>animales</li></ul><p>Usa el evento <tt>change</tt> para que si se selecciona <i>colores</i>, se muestren algunos nombres de colores en alguna parte de la web, pero si se selecciona <i>animales</i> se mostrarán algunos nombres de animales.<br>
+<b>Pista</b>: añade un eventListener con change a todos los radiobutton cuyo <tt>name=txtOpcion</tt>. En el código del eventListener puedes recuperar el value del que esté <tt>:checked</tt> o directamente recuperarlo con el atributo <tt>value</tt>.
+</p></div><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div></section><section><div contenteditable="true"><h3>Posible solución:</h3><p>Los radioButton tienen como id <code>txtOpcionColores</code> y <code>txtOpcionAnimales</code>.</p><p>Selecciona una opción</p><form><label><input type="radio" value="colores" name="txtOpcion" id="txtOpcionColores"> Colores</label><br><label><input type="radio" value="animales" name="txtOpcion" id="txtOpcionAnimales"> Animales</label>
+</form></div><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div></section><section><pre class="codigo language-javascript hljs" data-jup="code" contenteditable="true" spellcheck="false"><span class="hljs-variable language_">function gestionaOpciones(){
+</span><span class="hljs-keyword">  const</span> selección = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">"[name=txtOpcion]:checked"</span>).<span class="hljs-property">value</span>;
+  <span class="hljs-keyword">if</span>(selección == <span class="hljs-string">"colores"</span>)
+    <span class="hljs-title function_">alert</span>(<span class="hljs-string">"Rojo, Verde, Azul"</span>);
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-title function_">alert</span>(<span class="hljs-string">"Zorro, Perro, Gato"</span>);<span class="hljs-variable language_">
+}
+
+document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">"#txtOpcionColores"</span>).<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">"change"</span>, <span class="hljs-variable language_">gestionaOpciones</span>);
+
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">"</span><span class="hljs-string">#txtOpcionAnimales</span><span class="hljs-string">"</span>).<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">"change"</span>, <span class="hljs-variable language_">gestionaOpciones</span>);</pre><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/play.svg" data-jup="botonEjecutarCodigo" class="buttonEliminarTexto"><img src="img/borrarOutput.svg" data-jup="botonBorrarSalida" class="buttonEliminarTexto"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div><output data-jup="output"></output></section><form data-jup="formAnadirBloques" class="formBotonera justifyCenter">
+      <button type="button" data-jup="btnAnadirTexto"><img src="img/blockquote.svg"></button>
+      <button type="button" data-jup="btnAnadirCodigo"><img src="img/code.svg"></button>
+      <button type="button" data-jup="btnGuardarFichero"><img src="img/file-download.svg"></button>
+    </form>
+  </main>
+
+  <details data-jup="menu-auxiliar">
+    <summary>Menú</summary>
+    <button type="button" id="btnCambiarTema"><img src="img/paint.svg">Cambiar tema</button>
+    <button type="button" id="btnPosiciónBotones"><img src="img/box-align-left.svg">Posición botones</button>
+    <button type="button" id="btnLimitarMenúBloques"><img src="img/lock.svg">Proteger contenido</button>
+  </details>
+
+
+</html>

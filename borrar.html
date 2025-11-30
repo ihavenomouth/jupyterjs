@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cuaderno JS Simple</title>
@@ -13,38 +11,42 @@
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 	<!-- <script src="highlight.min.js" type="module"></script> -->
-  <script src="jupyterjs.js" defer></script>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script src="jupyterjs.js" defer=""></script>
 
 
-</head>
-<body>
   <!-- <h1>Cuaderno de JavaScript</h1> -->
   <main>
 
     <section>
-    <div contenteditable="true"><h1>Cuaderno de Javascript</h1>
-<p>Utiliza los botones de abajo para añadir bloques de contenido al cuaderno.</p></div>
+    <div contenteditable="true"><h1>Hooa caracola</h1>
+<p>Utiliza los botones de abajo para añadir bloques de contenido al cuaderno.</p><p><br></p><p>asñdkjsa lñsa</p><p>fslkg jdflkgj</p></div>
     <div>
 <img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque">
     </div>
   </section>
     
     <!-- El cuaderno con las notas irán aquí -->
-    <form data-jup="formAnadirBloques" class="formBotonera justifyCenter">
+    <section><pre class="codigo language-javascript hljs" data-jup="code" contenteditable="true" spellcheck="false">[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>].<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">d</span>=&gt;</span><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(d) );
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Terminado"</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Pepe"</span>);</pre><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/play.svg" data-jup="botonEjecutarCodigo" class="buttonEliminarTexto"><img src="img/borrarOutput.svg" data-jup="botonBorrarSalida" class="buttonEliminarTexto"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div><output data-jup="output">1
+2
+3
+4
+Terminado
+Pepe
+</output></section><form data-jup="formAnadirBloques" class="formBotonera justifyCenter">
       <button type="button" data-jup="btnAnadirTexto"><img src="img/blockquote.svg"></button>
       <button type="button" data-jup="btnAnadirCodigo"><img src="img/code.svg"></button>
       <button type="button" data-jup="btnGuardarFichero"><img src="img/file-download.svg"></button>
     </form>
   </main>
 
-  <details data-jup="menu-auxiliar">
+  <details data-jup="menu-auxiliar" open="">
     <summary>Menú</summary>
     <button type="button" id="btnCambiarTema"><img src="img/paint.svg">Cambiar tema</button>
     <button type="button" id="btnPosiciónBotones"><img src="img/box-align-left.svg">Posición botones</button>
-    <button type="button" id="btnProtegerContenido"><img src="img/lock.svg">Proteger/desproteger contenido</button>
-    <button type="button" id="btnVerOcultarBotones"><img src="img/eye.svg">Ver/ocultar botones</button>
+    <button type="button" id="btnLimitarMenúBloques"><img src="img/lock.svg">Proteger contenido</button>
   </details>
 
-</body>
+
 </html>
