@@ -4,12 +4,16 @@
   --primary-color: #663399;
   --bg-color: white;
   --text-color: #112233;
-  --dialog-bg-color: #f0f0ff;
+  /* --dialog-bg-color: #f0f0ff; */
+  /* --primary-color: #306090; */
+  /* --dialog-bg-color: #a0d0ff; */
+  --dialog-bg-color: #eef0ff;
 }
 
 /* Colores para el modo oscuro */
 body.dark {
-  --primary-color: #441177;
+  /* --primary-color: #441177; */
+  --primary-color: #552288;
   --bg-color: #112233;
   --text-color: #DDDDFF;
   --dialog-bg-color: color-mix(in srgb, var(--bg-color) 75%, black)
@@ -146,7 +150,7 @@ section:has([contenteditable]):hover > div:nth-child(2){
 }
 
 section:has([contenteditable=true]):hover{
-  outline: 2px solid var(--primary-color);
+  outline: 2px dashed var(--primary-color);
 }
 
 
@@ -284,9 +288,10 @@ details[data-jup=menu-auxiliar]{
   background-color: var(--dialog-bg-color);
   color: var(--text-color);
   padding: 0.5rem;
-  outline: 1px solid var(--primary-color);
-  border-radius: 10px;
+  outline: 2px solid var(--primary-color);
+  border-radius: 0px;
 }
+/* details[data-jup=menu-auxiliar]:hover{} */
 details[data-jup=menu-auxiliar] summary{
   list-style: none;
   text-align: right;

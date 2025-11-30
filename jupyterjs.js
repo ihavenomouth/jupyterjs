@@ -1,5 +1,45 @@
 "use strict";
 
+//FIXME: Terminar las view transitions para agregar bloques
+
+const CONTENIDOPROTEGIDO = 1;
+const BOTONESOCULTOS = 2;
+
+
+/**
+ * Recupera el valor de un atributo data-x del body (o false si no está establecido)
+ * @param {number} atributo 
+ * @returns el valor que corresponde al atributo que se pasa como parámetro
+ */
+const getValorAtributo = atributo =>{
+  if(atributo == CONTENIDOPROTEGIDO){
+    if( document.body.dataset.contenidoprotegido == undefined || document.body.dataset.contenidoprotegido == "false")
+      return false;
+    return true;
+  }
+  else{ // botones ocultos
+    if( document.body.dataset.botonesocultos == undefined || document.body.dataset.botonesocultos == "false")
+      return false;
+    return true;
+  }
+}
+
+
+/**
+ * Establece en un atributo data-x del body el valor que se pasa como parámetro
+ * @param {number} atributo 
+ * @param {boolean} valor 
+ */
+const setValorAtributo = (atributo, valor) =>{
+  if(atributo == CONTENIDOPROTEGIDO){
+    document.body.dataset.contenidoprotegido = valor;
+  }
+  else{ // botones ocultos
+    document.body.dataset.botonesocultos = valor;
+  }
+}
+
+
 
 const resaltar = (elemento) =>{
   hljs.highlightElement(elemento,{language: "javascript"});
@@ -7,12 +47,16 @@ const resaltar = (elemento) =>{
 
 
 const eliminarBloque = e => {
-  e.target.closest("section").remove();
+  document.startViewTransition(()=>{
+    e.target.closest("section").remove();
+  });
 };
 
 
 const borrarOutput = e => {
-  e.target.closest("section").lastElementChild.innerHTML="";
+  document.startViewTransition(()=>{
+    e.target.closest("section").lastElementChild.innerHTML="";
+  });
 }
 
 
@@ -20,16 +64,22 @@ const subirBloque = e => {
   const sectionActual = e.target.closest("section");
   const sectionAnterior = sectionActual.previousElementSibling;
 
-  if(sectionAnterior)
-    sectionAnterior.before(sectionActual);
+  if(sectionAnterior){
+    document.startViewTransition(()=>{
+      sectionAnterior.before(sectionActual);
+    });
+  }
 };
 
 const bajarBloque = e => {
   const sectionActual = e.target.closest("section");
   const sectionSiguiente = sectionActual.nextElementSibling;
 
-  if(sectionSiguiente.tagName != "FORM")
-    sectionSiguiente.after(sectionActual);
+  if(sectionSiguiente.tagName != "FORM"){
+    document.startViewTransition(()=>{
+      sectionSiguiente.after(sectionActual);
+    });
+  }
 };
 
 
@@ -83,6 +133,8 @@ function runCode(e) {
 
 
 
+
+
 /**
  * Permite añadir un bloque de texto al cuaderno
  */
@@ -110,7 +162,17 @@ const anadirBloqueDeTexto = ()=>{
     const divBotones = document.createElement("div");
     section.append(divTexto, divBotones);
     divTexto.innerHTML = textarea.value;
-    divTexto.contentEditable = "true";
+
+    if( ! getValorAtributo(CONTENIDOPROTEGIDO) ){
+      divTexto.contentEditable = "true";
+    }
+    else{
+      divTexto.contentEditable = "false";
+    }
+
+    if( getValorAtributo(BOTONESOCULTOS) ){
+      divBotones.style.display="none";
+    }
 
     const buttonEliminar = document.createElement("img");
     buttonEliminar.src="img/trash.svg";
@@ -307,6 +369,11 @@ const anadirBloqueDeCodigo = ()=>{
     buttonBajar.dataset.jup = "botonBajarBloque";
     buttonBajar.addEventListener("click",bajarBloque);
 
+    if( getValorAtributo(BOTONESOCULTOS) ){
+      buttonEliminar.style.display="none";
+      buttonSubir.style.display="none";
+      buttonBajar.style.display="none";
+    }
 
 
     divBotones.append(buttonEliminar, buttonPlay,buttonBorrarOutput, buttonSubir, buttonBajar);
@@ -524,34 +591,34 @@ document.querySelector("#btnPosiciónBotones").addEventListener("click", e=>{
 
 
 
-let contenidoProtegido = false;
 document.querySelector("#btnProtegerContenido").addEventListener("click", e=>{
-  if(!contenidoProtegido){
+  // debugger
+  if( ! getValorAtributo(CONTENIDOPROTEGIDO) ){
     document.querySelectorAll("div[contenteditable=true]").forEach(d=>{
       d.contentEditable = false;
     });
-    contenidoProtegido = true;
+
+    setValorAtributo(CONTENIDOPROTEGIDO, true);
   }
   else{
-    document.querySelectorAll("div[contenteditable=true]").forEach(d=>{
+    document.querySelectorAll("div[contenteditable=false]").forEach(d=>{
       d.contentEditable = true;
     });
-    contenidoProtegido = false;
+
+    setValorAtributo(CONTENIDOPROTEGIDO, false);
   }
 });
 
 
-
-//TODO: Cambiar estas variables para que sea un atributo del body
-let botonesOcultos = false;
 document.querySelector("#btnVerOcultarBotones").addEventListener("click", e=>{
-  if(!botonesOcultos){
+  if( ! getValorAtributo(BOTONESOCULTOS) ){
     //Ocultamos todos los botones del bloque de texto
     document.querySelectorAll("section div[contenteditable] + div:nth-child(2)").forEach(b=>b.style.display="none");
     
     //Del bloque de código ocultamos todos menos el de ejecutar y limpiar la salida
     document.querySelectorAll("[data-jup=botonEliminarBloque],[data-jup=botonSubirBloque],[data-jup=botonBajarBloque]").forEach(b=>b.style.display="none");
-    botonesOcultos = true;
+
+    setValorAtributo(BOTONESOCULTOS, true);
   }
   else{
     //Mostramos todos los botones del bloque de texto
@@ -559,6 +626,7 @@ document.querySelector("#btnVerOcultarBotones").addEventListener("click", e=>{
     
     //Del bloque de código mostramos los botones ocultos
     document.querySelectorAll("[data-jup=botonEliminarBloque],[data-jup=botonSubirBloque],[data-jup=botonBajarBloque]").forEach(b=>b.style.display="");
-    botonesOcultos = false;
+
+    setValorAtributo(BOTONESOCULTOS, false);
   }
 });
