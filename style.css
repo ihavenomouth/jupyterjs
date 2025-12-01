@@ -98,11 +98,13 @@ h3{
   /* width: 98%; */
   /* height: ; */
   font-family: monospace;
-  padding: 10px;
+  padding: 15px;
   /* border: 1px solid #ccc; */
   font-size: 1rem;
   /* margin-left: 2rem; */
-  overflow:scroll;
+  /*overflow:scroll;*/
+  overflow-y: scroll;
+  overflow-wrap: anywhere;
 }
 
 [contenteditable]{
@@ -267,13 +269,18 @@ section{
 }
 
 code, pre, tt{
-  background-color: #edf;
+  /*background-color: #edf;
+  color: var(--primary-color);
+  color: var(--bg-color);
+  */
+  background-color: color-mix(in srgb, var(--primary-color), 60% transparent);
   font-size: 0.9rem;
   font-family: monospace;
-  color: var(--primary-color);
+
 }
 pre{
   overflow:scroll;
+  padding:15px; /* estética */
 }
 
 pre[contenteditable]{
@@ -313,4 +320,10 @@ input{
   border-radius: 5px;
   background-color: var(--dialog-bg-color);
   color: var(--text-color);
+}
+
+a{
+  /*color: var(--primary-color);*/
+  color: color-mix(in srgb, var(--text-color) 30%, var(--primary-color) 70%);
+  filter: brightness(1.5);
 }

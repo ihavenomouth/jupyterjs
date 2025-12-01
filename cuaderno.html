@@ -5,55 +5,66 @@
   
   <!-- resaltado de sintaxis -->
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css"> -->
-	<!-- <link rel="stylesheet" href="vs2015.min.css"> -->
+	<link rel="stylesheet" href="atom-one-dark.min.css">
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16-gigavolt.min.css"> -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 	<!-- <script src="highlight.min.js" type="module"></script> -->
   <script src="jupyterjs.js" defer=""></script>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
 
 
   <!-- <h1>Cuaderno de JavaScript</h1> -->
   <main>
 
     <section>
-    <div contenteditable="true"><h1 id="h1">6 - DOM		</h1><p>O de manera más precisa: Utilización del modelo de objetos del documento (DOM).
-</p><p>Referencia:<br><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API" title="https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API" class="https">https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API</a>
-		</p><h1 id="h2">Introducción</h1><b>Importante</b>: Diferencia entre <i>nodo</i> y <i>elemento</i>: nodo incluye elementos HTML, texto y comentarios.
-
-<p>El DOM es un árbol de nodos en el que aparecen todos los componentes de 
-la web. Existen distintos tipos de nodos (12 tipos), de los cuales los 
-más importantes son:</p><ul style="padding-left: 30pt"><li>Nodo <i>document</i> (&lt;html&gt;)</li><li>Nodo <i>element</i> (cualquier otra etiqueta html: h1, form, etc)</li><li>Nodo <i>attr</i> (atributos de las etiquetas)</li><li>Nodo <i>text</i></li></ul><p><br></p><p>Nomenclatura de árboles:</p><ul style="padding-left: 30pt"><li><b>Raíz (root)</b>: nodo superior de la estructura (el objeto <tt>document</tt>)</li><li><b>Nodo(s) hijo(s) (child o children)</b>: descendientes de un nodo. <i>Children</i> es el plural de <i>child</i>.</li><li><b>Nodo padre (parent)</b>: nodo superior/antecesor en el que se encuentra anidado uno dado</li><li><b>Nodo hermano (sibling)</b>: nodos que comparten nodo padre</li><li><b>Nodo hoja</b>: nodo sin hijos. Todos los nodos de texto son nodos hoja.</li></ul><p><b>Nota</b>: nosotros trabajaremos casi siempre con elementos directamente, para los que se aplican también esa nomenclatura. 
+    <div contenteditable="false"><h1 id="h1">6 - DOM</h1>
+O de manera más precisa: Utilización del modelo de objetos del documento (DOM).<p>Referencia:<br>
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API" title="https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API" class="https">https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API</a>
+</p></div>
+    <div style="display: none;">
+<img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto" style="display: none;"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque" style="display: none;"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque" style="display: none;">
+    </div>
+  </section>
+    
+    <!-- El cuaderno con las notas irán aquí -->
+    <section><div contenteditable="false"><h1 id="h2">Introducción</h1>		<p><b>Importante</b>: Diferencia entre <i>nodo</i> y <i>elemento</i>: nodo incluye elementos HTML, texto y comentarios.
+</p><p>
+El DOM es un árbol de nodos en el que aparecen todos los componentes de la web. Existen distintos tipos de nodos (12 tipos), de los cuales los más importantes son:
+</p><ul style="padding-left: 30pt"><li>Nodo <i>document</i> (&lt;html&gt;)</li><li>Nodo <i>element</i> (cualquier otra etiqueta html: h1, form, etc)</li><li>Nodo <i>attr</i> (atributos de las etiquetas)</li><li>Nodo <i>text</i></li></ul><p>Nomenclatura de árboles:</p><ul style="padding-left: 30pt"><li><b>Raíz (root)</b>: nodo superior de la estructura (el objeto <tt>document</tt>)</li><li><b>Nodo(s) hijo(s) (child o children)</b>: descendientes de un nodo. <i>Children</i> es el plural de <i>child</i>.</li><li><b>Nodo padre (parent)</b>: nodo superior/antecesor en el que se encuentra anidado uno dado</li><li><b>Nodo hermano (sibling)</b>: nodos que comparten nodo padre</li><li><b>Nodo hoja</b>: nodo sin hijos. Todos los nodos de texto son nodos hoja.</li></ul><p>
+<b>Nota</b>: nosotros trabajaremos casi siempre con elementos directamente, para los que se aplican también esa nomenclatura. 
 </p>
-<br>
-<p>
-<img src="file:///home/javier/Prof/ZIM/0_Clases/8_Cliente/6_-_DOM/pasted_image.png">
+<p><img src="file:///home/javier/Prof/ZIM/0_Clases/8_Cliente/6_-_DOM/pasted_image.png">
 </p>
-<br>
-
-			<h2 id="h3">Buscar elementos en el árbol			</h2><p>
-<b>Métodos de búsqueda clásica</b>:<br>
-Algunos devuelven una colección de elementos (HTMLCollection no es un array, pero sí es una estructura iterable).</p><pre>document.getElementById("id");
+</div><div style="display: none;"><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto" style="display: none;"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque" style="display: none;"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque" style="display: none;"></div></section><section><div contenteditable="false"><h2 id="h3">Buscar elementos en el árbol</h2><p><b>Métodos de búsqueda clásica</b>:<br>
+Algunos devuelven una colección de elementos (HTMLCollection no es un array, pero sí es una estructura iterable).
+</p><pre>document.getElementById("id");
 document.getElementsByName("txtNombre"); // Campos de formulario
 document.getElementsByTagName("h1");
-document.getElementsByClassName("seleccionado");</pre><p><br></p><p>También se puede buscar a partir de un elemento que no sea <tt>document</tt>, por ejemplo:</p><pre>const div = document.getElementById("divDatos");
+document.getElementsByClassName("seleccionado");
+</pre><p>También se puede buscar a partir de un elemento que no sea <tt>document</tt>, por ejemplo:
+</p><pre>const div = document.getElementById("divDatos");
 div.getElementsByClassName("rojo");
 div.getElementsByTagName("rojo");
 div.querySelector(".rojo");
-</pre>
-<b>Nota</b>: No tendremos disponible un <tt>div.getElementById(id);</tt><p><b>Nota</b>: Un error común es olvidarse del plural de <i>Elements</i> en métodos que devuelven o pueden devolver varios nodos.
-
-</p><p><b>Métodos de búsqueda con selectores CSS</b>:</p><pre>document.querySelector("selector-css");
-document.querySelectorAll("selector-css");</pre><p><b>Ejemplos</b>: 
-</p><pre>let oInput = document.querySelector("#txtNombre");
+</pre><p>
+<b>Nota</b>: No tendremos disponible un <tt>div.getElementById(id);</tt><br>
+<b>Nota</b>: Un error común es olvidarse del plural de <i>Elements</i> en métodos que devuelven o pueden devolver varios nodos.
+</p><p>
+<b>Métodos de búsqueda con selectores CSS</b>:</p><pre>document.querySelector("selector-css");
+document.querySelectorAll("selector-css");</pre><p><b>Ejemplos</b>: </p><pre>let oInput = document.querySelector("#txtNombre");
 let oH1 = document.querySelectorAll("h1");
 let oSeleccionados = document.querySelectorAll(".seleccionado");
 let oTxtNombre = document.querySelector("[name='txtNombre']");
 </pre>
-Propiedades de los nodos:
-<ul style="padding-left: 30pt"><li><tt>nodeType</tt> - Número que identifica el tipo de nodo</li><li><tt>nodeName</tt> - Nombre del nodo. En elementos HTML es la etiqueta en mayusculas (<tt>"DIV"</tt>, <tt>"UL"</tt>), si el nodo es de texto el nombre será <tt>"#text"</tt>.</li><li><tt>tagName</tt> - Si es un elemento HTML tendrá esta propiedad y coincidirá con el <tt>nodeName</tt>.</li><li><tt>nodeValue</tt> - Valor asociado al nodo y depende del tipo de nodo. Si es un input se usará <tt>value</tt> para recuperar su contenido.</li></ul>			<h2 id="h4">Navegar por los elementos		</h2><p><b>Propiedades que devuelven elementos HTML</b> (etiquetas). Probablemente sean los más utilizados desde JS.</p><ul style="padding-left: 30pt"><li><tt>parentElement</tt> – El elemento padre</li><li><tt>firstElementChild</tt> – El primer hijo</li><li><tt>lastElementChild</tt> – El último hijo</li><li><tt>children</tt> – HTMLCollection (similar a un array) que contiene todos los hijos del elemento</li><li><tt>nextElementSibling</tt> – El siguiente hermano en la jerarquía del árbol</li><li><tt>previousElementSibling</tt> – El hermano anterior en la jerarquía del árbol</li><li><tt>closest("tr")</tt> – El elemento antecesor (padre, abuelo, ...) más cercano que sea un <tt>&lt;tr&gt;</tt></li></ul><p> Devolverán <tt>null</tt> si no existe el elemento referenciado, por ejemplo un elemento que no tenga hermanos ni hijos tendrá <tt>null</tt> como valor de <tt>nextElementSibling</tt>, <tt>previousElementSibling</tt>, <tt>firstElementChild</tt> y <tt>lastElementChild</tt>. Sin embargo <tt>children</tt> será un <tt>HTMLCollection</tt> con 0 elementos (se ve en la propiedad <tt>length</tt>).
+<p>Propiedades de los nodos:</p><ul style="padding-left: 30pt"><li><tt>nodeType</tt> - Número que identifica el tipo de nodo</li><li><tt>nodeName</tt> - Nombre del nodo. En elementos HTML es la etiqueta en mayusculas (<tt>"DIV"</tt>, <tt>"UL"</tt>), si el nodo es de texto el nombre será <tt>"#text"</tt>.</li><li><tt>tagName</tt> - Si es un elemento HTML tendrá esta propiedad y coincidirá con el <tt>nodeName</tt>.</li><li><tt>nodeValue</tt> - Valor asociado al nodo y depende del tipo de nodo. Si es un input se usará <tt>value</tt> para recuperar su contenido.</li></ul></div><div style="display: none;"><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto" style="display: none;"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque" style="display: none;"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque" style="display: none;"></div></section><section><div contenteditable="false"><h2 id="h4">Navegar por los elementos</h2><p><b>Propiedades que devuelven elementos HTML</b> (etiquetas). Probablemente sean los más utilizados desde JS.
+</p><ul style="padding-left: 30pt"><li><tt>parentElement</tt> – El elemento padre</li><li><tt>firstElementChild</tt> – El primer hijo</li><li><tt>lastElementChild</tt> – El último hijo</li><li><tt>children</tt> – HTMLCollection (similar a un array) que contiene todos los hijos del elemento</li><li><tt>nextElementSibling</tt> – El siguiente hermano en la jerarquía del árbol</li><li><tt>previousElementSibling</tt> – El hermano anterior en la jerarquía del árbol</li><li><tt>closest("tr")</tt> – El elemento antecesor (padre, abuelo, ...) más cercano que sea un <tt>&lt;tr&gt;</tt></li></ul><p>Devolverán <tt>null</tt> si no existe el elemento referenciado, por ejemplo un elemento que no tenga hermanos ni hijos tendrá <tt>null</tt> como valor de <tt>nextElementSibling</tt>, <tt>previousElementSibling</tt>, <tt>firstElementChild</tt> y <tt>lastElementChild</tt>. Sin embargo <tt>children</tt> será un <tt>HTMLCollection</tt> con 0 elementos (se ve en la propiedad <tt>length</tt>).
 
-</p><p><b>Propiedades que devuelven cualquier tipo de Nodo</b>. Hay que teber cuidado porque pueden devolver también nodos de texto, por tanto no deberíamos usarlos si sólo queremos recorrer los elementos (las etiquetas HTML) del DOM. </p><ul style="padding-left: 30pt"><li><tt>parentNode</tt> – Referencia al nodo padre</li><li><tt>firstChild</tt> – Referencia al primer nodo hijo</li><li><tt>lastChild</tt> – Referencia al último nodo hijo</li><li><tt>childNodes</tt> – Array con los nodos hijo</li><li><tt>nextSibling</tt> – Referencia al siguiente hermano</li><li><tt>previousSibling</tt> – Referencia al hermano anterior</li></ul><p>
+</p><p><b>Propiedades que devuelven cualquier tipo de Nodo</b>. Hay que teber 
+cuidado porque pueden devolver también nodos de texto, por tanto no 
+deberíamos usarlos si sólo queremos recorrer los elementos (las 
+etiquetas HTML) del DOM. </p><ul style="padding-left: 30pt"><li><tt>parentNode</tt> – Referencia al nodo padre</li><li><tt>firstChild</tt> – Referencia al primer nodo hijo</li><li><tt>lastChild</tt> – Referencia al último nodo hijo</li><li><tt>childNodes</tt> – Array con los nodos hijo</li><li><tt>nextSibling</tt> – Referencia al siguiente hermano</li><li><tt>previousSibling</tt> – Referencia al hermano anterior</li></ul><p>
 Ejemplo:</p><pre>&lt;main&gt;
  &lt;h1&gt;Graphviz&lt;/h1&gt;
  &lt;p&gt;Graphviz permite &lt;strong&gt;definir diagramas&lt;/strong&gt; con texto.&lt;/p&gt;
@@ -62,17 +73,14 @@ Ejemplo:</p><pre>&lt;main&gt;
    &lt;p&gt;Hay varios tipos de gráficos que se pueden crear.&lt;/p&gt;
  &lt;/div&gt;
 &lt;/main&gt;
+</pre>
+<p>Si vemos el árbol que nos genera en <a href="https://software.hixie.ch/utilities/js/live-dom-viewer/" title="https://software.hixie.ch/utilities/js/live-dom-viewer/" class="https">https://software.hixie.ch/utilities/js/live-dom-viewer/</a> observaremos que se crean muchos nodos de texto vacío por los espacios y retornos de carro.
 
-</pre><p>Si vemos el árbol que nos genera en <a href="https://software.hixie.ch/utilities/js/live-dom-viewer/" title="https://software.hixie.ch/utilities/js/live-dom-viewer/" class="https">https://software.hixie.ch/utilities/js/live-dom-viewer/</a> observaremos que se crean muchos nodos de texto vacío por los espacios y retornos de carro.
-</p>
-<p>Si <b>lo minificamos y lo dejamos en una única línea</b>, obtendremos este árbol:<br>
+</p><p>Si <b>lo minificamos y lo dejamos en una única línea</b>, obtendremos este árbol:<br>
 <img src="file:///home/javier/Prof/ZIM/0_Clases/8_Cliente/6_-_DOM/diagram.png">
 </p>
-<br>
-<p>
-Partiendo del elemento <tt>p</tt> destacado en rojo (recuerda que se ha minificado el código HTML):
-</p>
-<pre>p.parentElement                   // &lt;main&gt;
+
+<p>Partiendo del elemento <tt>p</tt> destacado en rojo (recuerda que se ha minificado el código HTML):</p><pre>p.parentElement                   // &lt;main&gt;
 p.parentNode                      // &lt;main&gt;
 
 p.nextSibling                     // #text "Este texto... "
@@ -89,71 +97,63 @@ p.firstChild                      // #text " con texto."
 
 p.children.length                 // 1 (sólo el strong)
 p.childNodes.length               // 3 [ #text, strong, #text ]
-</pre>
-<br>
-<p>
-<b>Nota</b>: si no quitamos los retornos de carro y espacios entre 
-etiquetas, tendremos muchos más nodos de texto. Tendremos que tenerlo en
- cuenta al usar unos métodos u otros.
+</pre><p><b>Nota</b>: si no quitamos los retornos de carro y espacios entre etiquetas, tendremos muchos más nodos de texto. Tendremos que tenerlo en cuenta al usar unos métodos u otros.</p></div><div style="display: none;"><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto" style="display: none;"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque" style="display: none;"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque" style="display: none;"></div></section><section><div contenteditable="false"><h2 id="h5">HTMLCollection y NodeList</h2><p>Los métodos que devuelven varios nodos como <tt>querySelectorAll()</tt> no devuelven un array, sino una colección de nodos en un objeto <tt>NodeList</tt>.<br>
+Por otro lado hay métodos que devuelven una colección de elementos en un objeto <tt>HTMLCollection</tt> como <tt>document.getElementsByTagName("section")</tt>. 
+</p><p>La diferencia principal es que un <tt>HTMLCollection</tt> sólo contendrá elementos y un <tt>NodeList</tt> puede contener otro tipo de nodos. 
+</p><p>Esta colección de objetos es iterable y por tanto se puede acceder a sus elementos usando el operador <tt>[]</tt>, el método <tt>forEach()</tt>, un <tt>for..of</tt> o un bucle <tt>for</tt> clásico.
 </p>
-</div>
-    <div>
-<img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque">
-    </div>
-  </section>
-    
-    <!-- El cuaderno con las notas irán aquí -->
-    <section><div contenteditable="true">Probando a añadir algo de <code>código más abajo</code>. Pulsa los botones correspondientes para ejecutar el código.</div><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div></section><section><pre class="codigo language-javascript hljs" data-jup="code" contenteditable="true" spellcheck="false"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">345</span>);
-<span class="hljs-comment">//Menuda cagada</span>
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Hola caracola"</span>);
+<p>Si fuera necesario podríamos convertirlos a Array usando <tt>Array.from( ... );</tt> y así podríamos tener acceso a los métodos de array como <tt>filter()</tt> o <tt>map()</tt>.<br>
+También se puede usar el operador <i>spread</i> para convertir estas colecciones en un array,por ejemplo para crear un array a partir de los atributos de un nodo: <tt>[...nodo.attributes]</tt>
+</p>
+<p><b>Referencia</b>: <a href="https://www.freecodecamp.org/news/dom-manipulation-htmlcollection-vs-nodelist/" title="https://www.freecodecamp.org/news/dom-manipulation-htmlcollection-vs-nodelist/" class="https">https://www.freecodecamp.org/news/dom-manipulation-htmlcollection-vs-nodelist/</a>
+				</p><h3>Ejercicios</h3><p><b>Ejercicio 1</b>: dado este HTML, recupera el elemento con <tt>id="resultado"</tt>. Y partiendo de él realiza las siguientes operaciones navegando por el DOM con los métodos vistos:</p><ol style="padding-left: 30pt" type="1" start="1"><li>Cambia el texto del párrafo para que indique <tt>"Lista de animales"</tt>.</li><li>Haz que el último elemento de la lista indique <tt>"Lobo"</tt>.</li><li>Haz que el texto en negrita sea <tt>"de agua"</tt>.</li><li>Haz que se muestre por pantalla el contenido del último párrafo.</li></ol><pre>&lt;div id="resultado"&gt;
+  A continuación tenemos una lista de animales.
+  &lt;p&gt;Animales&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Zorro&lt;/li&gt;
+    &lt;li&gt;Gato&lt;/li&gt;
+    &lt;li&gt;Perro &lt;strong&gt;pastor&lt;/strong&gt;&lt;/li&gt;
+    &lt;li&gt;Loro&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;p&gt;Fin de la lista de animales.&lt;/p&gt;
+  Ahora es tu turno para construir una lista de plantas.
+&lt;/div&gt;
+</pre></div><div style="display: none;"><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto" style="display: none;"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque" style="display: none;"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque" style="display: none;"></div></section><section><div contenteditable="false"><h2>Solución: Este es el HTML</h2><div id="resultado">A continuación tenemos una lista de animales.<p>Animales</p><ul><li>Zorro</li><li>Gato</li><li>Perro <strong>pastor</strong></li><li>Loro</li></ul><p>Fin de la lista de animales.</p>Ahora es tu turno para construir una lista de plantas.</div></div><div style="display: none;"><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto" style="display: none;"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque" style="display: none;"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque" style="display: none;"></div></section><section><pre class="codigo language-javascript hljs" data-jup="code" contenteditable="true" spellcheck="false"><span class="hljs-keyword">const</span> resultado = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">"#resultado"</span>);
 
-<span class="hljs-keyword">let</span> a=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>];
+resultado.<span class="hljs-property">firstElementChild.innerText</span> = <span class="hljs-string">"Lista de animales"</span>;
 
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"yeah"</span>);
+resultado.<span class="hljs-property">firstElementChild</span>.<span class="hljs-property">nextElementSibling</span>.<span class="hljs-property">lastElementChild.innerText</span> = <span class="hljs-string">"Lobo"</span>;
 
-a.<span class="hljs-title function_">forEach</span>( <span class="hljs-function"><span class="hljs-params">e</span>=&gt;</span><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(e) );
+resultado.<span class="hljs-property">firstElementChild</span>.<span class="hljs-property">nextElementSibling</span>
+.<span class="hljs-property">lastElementChild</span>.<span class="hljs-property">previousElementSibling</span>
+.<span class="hljs-property">firstElementChild</span>.<span class="hljs-property">innerText</span>=<span class="hljs-string">"de agua"</span>;
 
-<span class="hljs-keyword">let</span> w = <span class="hljs-number">23</span>;
-
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Join: "</span> + a.<span class="hljs-title function_">join</span>(<span class="hljs-string">","</span>) );</pre><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/play.svg" data-jup="botonEjecutarCodigo" class="buttonEliminarTexto"><img src="img/borrarOutput.svg" data-jup="botonBorrarSalida" class="buttonEliminarTexto"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div><output data-jup="output"></output></section><section><div contenteditable="true">Escribe el código necesario para que se sumen en una única línea de código el contenido de <code>let s = [2,4,5,6,7]</code></div><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div></section><section><pre class="codigo language-javascript hljs" data-jup="code" contenteditable="true" spellcheck="false"><span class="hljs-comment">// Escribe tu código aquí</span>
-<span class="hljs-keyword">let</span> s = [<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>];
-
-<span class="hljs-keyword">let</span> sum1 = <span class="hljs-number">0</span>;
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i=<span class="hljs-number">0</span>; i&lt;s.<span class="hljs-property">length</span>;i++){
-  sum1 += s[i];
-}
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(sum1);
-
-
-<span class="hljs-keyword">let</span> sum2 = <span class="hljs-number">0</span>;
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> n <span class="hljs-keyword">of</span> s){
-  sum2 += n;
-}
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(sum2);
-
-
-<span class="hljs-keyword">let</span> sum3=<span class="hljs-number">0</span>;
-s.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">n</span>=&gt;</span>sum3+=n);
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(sum3);
-
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">sumPrecise</span>(s));
-
-<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( s.<span class="hljs-title function_">reduce</span>( <span class="hljs-function">(<span class="hljs-params">n,acc</span>)=&gt;</span>n+acc,<span class="hljs-number">0</span>  ) );
-
-</pre><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto"><img src="img/play.svg" data-jup="botonEjecutarCodigo" class="buttonEliminarTexto"><img src="img/borrarOutput.svg" data-jup="botonBorrarSalida" class="buttonEliminarTexto"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque"></div><output data-jup="output">24
-24
-24
-24
-24
-</output></section><form data-jup="formAnadirBloques" class="formBotonera justifyCenter">
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( resultado.<span class="hljs-property">lastElementChild</span>.<span class="hljs-property">innerText</span> );</pre><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto" style="display: none;"><img src="img/play.svg" data-jup="botonEjecutarCodigo" class="buttonEliminarTexto"><img src="img/borrarOutput.svg" data-jup="botonBorrarSalida" class="buttonEliminarTexto"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque" style="display: none;"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque" style="display: none;"></div><output data-jup="output"></output></section><section><div contenteditable="false"><b>Ejercicio 2</b>: Partiendo del HTML de arriba, quita el atributo id de la etiqueta <tt>&lt;div&gt;</tt> (a mano, no con código) y añádeselo  al <tt>&lt;strong&gt;</tt>. Repite el ejercicio a partir de ese elemento.
+</div><div style="display: none;"><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto" style="display: none;"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque" style="display: none;"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque" style="display: none;"></div></section><section><div contenteditable="false"><h2 id="h8">Atributos estándar de HTML</h2>
+Se puede acceder a <b>un atributo estándar directamente por su nombre</b>.
+<p>Por ejemplo en una etiqueta <tt>&lt;a id="enlace"&gt;</tt>:
+</p><pre>const a = document.querySelector("#enlace"); //selector CSS
+a.href = "https:\\google.es";
+</pre><p>
+Si el atributo no es estándar de HTML para esa etiqueta se le añadirá el atributo, pero no tendrá efectos prácticos.
+</p><p>
+Referencia: </p><ul style="padding-left: 30pt"><li>Lista de atributos HTML: <a href="https://developer.mozilla.org/es/docs/Web/HTML/Attributes" title="https://developer.mozilla.org/es/docs/Web/HTML/Attributes" class="https">https://developer.mozilla.org/es/docs/Web/HTML/Attributes</a></li><li>Lista de atributos estándar: <a href="https://www.w3schools.com/tags/ref_attributes.asp" title="https://www.w3schools.com/tags/ref_attributes.asp" class="https">https://www.w3schools.com/tags/ref_attributes.asp</a></li></ul>
+Ejemplo: <a id="enlace" href="#">Hiperenlace con id enlace</a>.</div><div style="display: none;"><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto" style="display: none;"><img src="img/edit.svg" class="buttonEliminarTexto" data-jup="botonEditarBloque"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque" style="display: none;"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque" style="display: none;"></div></section><section><pre class="codigo language-javascript hljs" data-jup="code" contenteditable="true" spellcheck="false"><span class="hljs-keyword">const</span> a = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">"#enlace"</span>); <span class="hljs-comment">//selector CSS</span>
+a.<span class="hljs-property">href</span> = <span class="hljs-string">"https:\\google.es"</span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Hiperenlace cambiado a www.google.es"</span>);</pre><div><img src="img/trash.svg" data-jup="botonEliminarBloque" class="buttonEliminarTexto" style="display: none;"><img src="img/play.svg" data-jup="botonEjecutarCodigo" class="buttonEliminarTexto"><img src="img/borrarOutput.svg" data-jup="botonBorrarSalida" class="buttonEliminarTexto"><img src="img/caret-up.svg" class="buttonEliminarTexto" data-jup="botonSubirBloque" style="display: none;"><img src="img/caret-down.svg" class="buttonEliminarTexto" data-jup="botonBajarBloque" style="display: none;"></div><output data-jup="output"></output></section><form data-jup="formAnadirBloques" class="formBotonera justifyCenter">
       <button type="button" data-jup="btnAnadirTexto"><img src="img/blockquote.svg"></button>
       <button type="button" data-jup="btnAnadirCodigo"><img src="img/code.svg"></button>
       <button type="button" data-jup="btnGuardarFichero"><img src="img/file-download.svg"></button>
     </form>
   </main>
 
-
-<!-- Code injected by live-server -->
+  <details data-jup="menu-auxiliar" open="">
+    <summary>Menú</summary>
+    <button type="button" id="btnCambiarTema"><img src="img/paint.svg">Cambiar tema</button>
+    <button type="button" id="btnPosiciónBotones"><img src="img/box-align-left.svg">Posición botones</button>
+    <button type="button" id="btnProtegerContenido"><img src="img/lock.svg">Proteger/desproteger contenido</button>
+    <button type="button" id="btnVerOcultarBotones"><img src="img/eye.svg">Ver/ocultar botones</button>
+  </details>
 
 
 </html>
